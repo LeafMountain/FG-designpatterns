@@ -59,11 +59,9 @@ public class Bullet : MonoBehaviour
     void SpawnDecal(ContactPoint contactPoint)
     {
         var decalSystem = BulletDecalSystem_Prefabs.GetInstance();
-        // var test = new BulletDecalSystem_Prefabs();
-
         GameObject decal = decalSystem.GetDecal();
         decal.transform.position = contactPoint.point;
-        decal.transform.forward = contactPoint.normal;
+        decal.transform.forward = -contactPoint.normal;
         decal.SetActive(true);
     }
 
