@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4506b1d274057444c8f05d663094ea79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 3899028934813870952, guid: 8d2ea383b036595419e7336e6f896892, type: 3}
+  Bullet: {fileID: 3899028934813870952, guid: 8d2ea383b036595419e7336e6f896892, type: 3}
 --- !u!1 &6742963845246915857
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,4 +250,3 @@ MonoBehaviour:
   turnLeftKey: 97
   turnRightKey: 100
   shootKey: 32
-  gun: {fileID: 485805977699256822}

@@ -4,34 +4,73 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-	public GameObject bullet;
+    public GameObject Bullet;
+    private ObjectPool<GameObject> bulletPool;
 
-	float shootTime;
-	float shootInterval = 0.1f;
+    float shootTime;
+    float shootInterval = 0.1f;
 
-	[System.NonSerialized]
-	public Player owner;
+    [System.NonSerialized]
+    public Player owner;
 
-	//
-	// No pool
-	//
-	
-	public void Shoot() {
-		if(shootTime <= Time.time) {
-			var b = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Bullet>();
-			b.owner = owner;
-			shootTime = Time.time + shootInterval;
-		}
-	}
-	
+    void Start()
+    {
+        bulletPool = new GameObjectPool(Bullet, 100);
+    }
+
+    public void Shoot()
+    {
+        if (shootTime <= Time.time)
+        {
+            if (!Bullet)
+                return;
+
+            (GameObject, int) pooledBullet = bulletPool.GetPooledObjectWithIndex();
+            Bullet spawnedBullet = pooledBullet.Item1.GetComponent<Bullet>();
+            spawnedBullet.transform.position = transform.position;
+            spawnedBullet.transform.rotation = transform.rotation;
+            spawnedBullet.owner = owner;
+            spawnedBullet.poolIndex = pooledBullet.Item2;
+            spawnedBullet.poolOwner = this;
+            shootTime = Time.time + shootInterval;
+            spawnedBullet.Launch();
+        }
+    }
+
+    public void ReturnBullet(int index)
+    {
+        bulletPool.ReturnPooledObject(index);
+    }
+
+    #region 
+    // public GameObject bullet;
+
+    // float shootTime;
+    // float shootInterval = 0.1f;
+
+    // [System.NonSerialized]
+    // public Player owner;
+
+    // //
+    // // No pool
+    // //
+
+    // public void Shoot() {
+    // 	if(shootTime <= Time.time) {
+    // 		var b = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Bullet>();
+    // 		b.owner = owner;
+    // 		shootTime = Time.time + shootInterval;
+    // 	}
+    // }
 
 
 
 
-	//
-	// Pooled 1 (more "pure")
-	//
-	/*
+
+    //
+    // Pooled 1 (more "pure")
+    //
+    /*
 	Bullet[] bulletPool = new Bullet[10];
 	int bulletPoolFreeIndex = 0;
 
@@ -70,10 +109,10 @@ public class Gun : MonoBehaviour
 
 
 
-	//
-	// Pooled 2
-	//
-	/*
+    //
+    // Pooled 2
+    //
+    /*
 	Bullet[] bulletPool = new Bullet[10];
 	int bulletPoolFreeIndex = 0;
 
@@ -101,4 +140,5 @@ public class Gun : MonoBehaviour
 		}
 	}
 	*/
+    #endregion
 }
