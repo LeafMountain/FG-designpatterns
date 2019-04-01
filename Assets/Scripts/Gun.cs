@@ -5,7 +5,7 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     public GameObject Bullet;
-    private ObjectPool<GameObject> bulletPool;
+    private GameObjectPool bulletPool;
 
     float shootTime;
     float shootInterval = 0.1f;
@@ -30,8 +30,8 @@ public class Gun : MonoBehaviour
             spawnedBullet.transform.position = transform.position;
             spawnedBullet.transform.rotation = transform.rotation;
             spawnedBullet.owner = owner;
-            spawnedBullet.poolIndex = pooledBullet.Item2;
             spawnedBullet.poolOwner = this;
+            spawnedBullet.poolIndex = pooledBullet.Item2;
             shootTime = Time.time + shootInterval;
             spawnedBullet.Launch();
         }
