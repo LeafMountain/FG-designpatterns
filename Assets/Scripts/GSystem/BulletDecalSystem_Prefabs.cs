@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletDecalSystem_Prefabs
+public class BulletDecalSystem_Prefabs : Singleton<BulletDecalSystem_Prefabs>
 {
-    private static BulletDecalSystem_Prefabs instance;
+    // private static BulletDecalSystem_Prefabs instance;
     private GameObjectPool bulletDecalPool;
 
-    public static BulletDecalSystem_Prefabs GetInstance()
-    {
-        if (instance == null)
-            instance = new BulletDecalSystem_Prefabs();
+    // public static BulletDecalSystem_Prefabs GetInstance()
+    // {
+    //     if (instance == null)
+    //         instance = new BulletDecalSystem_Prefabs();
 
-        return instance;
-    }
+    //     return instance;
+    // }
 
     public BulletDecalSystem_Prefabs()
     {

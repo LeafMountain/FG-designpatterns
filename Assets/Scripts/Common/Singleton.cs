@@ -1,20 +1,26 @@
-﻿// using System.Collections;
-// using System.Collections.Generic;
-// using System.Reflection;
-// using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
+using UnityEngine;
 
-// public abstract class Singleton<T> where T : Singleton<T>
-// {
-//     static T instance;
+public abstract class Singleton<T> where T : Singleton<T>, new()
+{
+    static T instance = new T();
 
-//     public static T GetInstance()
-//     {
-//         if (instance == null)
-//         {
-//             var type = typeof(T);
-//             var instance = type.GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-//         }
+    public Singleton()
+    {
+        // Delete instance if one already exists
+        if (instance != null)
+            Debug.Log("Only one of [" + typeof(T).ToString() + "] instance allowed");
+    }
 
-//         return instance;
-//     }
-// }
+    public static T GetInstance()
+    {
+        if (instance == null)
+        {
+            T instance = new T();
+        }
+
+        return instance;
+    }
+}
