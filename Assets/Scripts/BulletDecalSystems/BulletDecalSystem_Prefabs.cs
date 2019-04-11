@@ -7,14 +7,6 @@ public class BulletDecalSystem_Prefabs : Singleton<BulletDecalSystem_Prefabs>
     // private static BulletDecalSystem_Prefabs instance;
     private GameObjectPool bulletDecalPool;
 
-    // public static BulletDecalSystem_Prefabs GetInstance()
-    // {
-    //     if (instance == null)
-    //         instance = new BulletDecalSystem_Prefabs();
-
-    //     return instance;
-    // }
-
     public BulletDecalSystem_Prefabs()
     {
         // I'm not sure if this is a good solution but it works for now
